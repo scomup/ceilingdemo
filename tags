@@ -1,0 +1,122 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AMCL	amcl.py	/^class AMCL():$/;"	kind:class	line:56
+BagReader	readbag.py	/^class BagReader:$/;"	kind:class	line:20
+C	test.py	/^C = np.matrix([[320., 0, 320.5], [0, 320., 240.5], [0, 0, 1.]])$/;"	kind:variable	line:51
+Odom_Model	odom_model.py	/^class Odom_Model:$/;"	kind:class	line:18
+Particle_cloud	particle_cloud.py	/^class Particle_cloud:$/;"	kind:class	line:8
+R	odom_model.py	/^def R(angle):$/;"	kind:function	line:14
+R	test.py	/^R = np.matrix([[0., -1., 0.], [1., 0., 0.], [0., 0., 1.]])$/;"	kind:variable	line:52
+Rwc	test.py	/^    Rwc = np.matrix(odom[0:3,0:3])$/;"	kind:variable	line:74
+Tcw	test.py	/^    Tcw = np.matrix(np.eye(4))$/;"	kind:variable	line:77
+__init__	amcl.py	/^    def __init__(self, raw_data, costmap, gui):$/;"	kind:member	line:57
+__init__	odom_model.py	/^    def __init__(self, A1 = 0.02, A2 = 0.02, A3 = 0.02, A4 = 0.02):  $/;"	kind:member	line:19
+__init__	particle_cloud.py	/^    def __init__(self, num=1000, alpha_slow = 0.001, alpha_fast = 0.1):$/;"	kind:member	line:9
+__init__	readbag.py	/^    def __init__(self, bagfile, image_topic, odom_topic, start_time, end_time):$/;"	kind:member	line:21
+__init__	test.py	/^    def __init__(self, kp, des):$/;"	kind:member	line:28
+__test__3dpoint__	test.py	/^__test__3dpoint__ = False$/;"	kind:variable	line:20
+__test__readbag__	test.py	/^__test__readbag__ = False$/;"	kind:variable	line:21
+a_thresh_	amcl.py	/^a_thresh_ = np.pi\/12$/;"	kind:variable	line:27
+alpha_fast	amcl.py	/^alpha_fast = 0.1$/;"	kind:variable	line:44
+alpha_slow	amcl.py	/^alpha_slow =  0.01$/;"	kind:variable	line:43
+amcl	amcl.py	/^amcl = AMCL(bagreader.data, costmap, gui)$/;"	kind:variable	line:162
+amcl.py	amcl.py	1;"	kind:file	line:1
+ax	test.py	/^    ax = fig.add_subplot(111, projection='3d')$/;"	kind:variable	line:129
+ax	test.py	/^ax = fig.add_subplot(1,1,1)$/;"	kind:variable	line:55
+bag	test.py	/^    bag = rosbag.Bag("ceiling_test.bag", 'r')$/;"	kind:variable	line:118
+bagfile	amcl.py	/^bagfile = 'h3.bag'$/;"	kind:variable	line:18
+bagreader	amcl.py	/^bagreader = BagReader(bagfile, scan_topic, odom_topic, start_time, end_time)$/;"	kind:variable	line:155
+bagreader	readbag.py	/^    bagreader = BagReader('ceiling_test.bag', '\/stereo\/left\/image_raw', '\/myRobot\/odom',0,800)$/;"	kind:variable	line:111
+bagreader	test.py	/^bagreader = BagReader('ceiling_test.bag', '\/stereo\/left\/image_raw', '\/myRobot\/odom',0,800)$/;"	kind:variable	line:67
+bf	test.py	/^bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)$/;"	kind:variable	line:65
+bridge	test.py	/^    bridge = CvBridge()$/;"	kind:variable	line:116
+checkupdate	amcl.py	/^    def checkupdate(self):$/;"	kind:member	line:77
+costmap	amcl.py	/^costmap = Prob_map(original_point, max_dist, resolution, fre_thr , occ_thr)$/;"	kind:variable	line:158
+d_thresh_	amcl.py	/^d_thresh_ = .1$/;"	kind:variable	line:26
+end_time	amcl.py	/^end_time = 800$/;"	kind:variable	line:22
+fig	test.py	/^    fig = plt.figure()$/;"	kind:variable	line:128
+fig	test.py	/^fig = plt.figure()$/;"	kind:variable	line:54
+fix_angle	odom_model.py	/^    def fix_angle(self, angle):$/;"	kind:member	line:36
+fre_thr	amcl.py	/^fre_thr = 200$/;"	kind:variable	line:36
+grey_img	test.py	/^grey_img =cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)$/;"	kind:variable	line:24
+gui	amcl.py	/^gui = LSLAMGUI()$/;"	kind:variable	line:156
+gui_update	amcl.py	/^    def gui_update(self):$/;"	kind:member	line:90
+image_file_name	amcl.py	/^image_file_name = 'map3.pgm'$/;"	kind:variable	line:24
+img	test.py	/^img = cv2.imread('pattern_wall_resize.jpg')$/;"	kind:variable	line:22
+img2	test.py	/^img2 = cv2.drawKeypoints(img,kp,color=(0,255,0), flags=0)$/;"	kind:variable	line:61
+init_partcle_pose	amcl.py	/^init_partcle_pose = (0,0,0)$/;"	kind:variable	line:40
+init_partcle_rot_sigma	amcl.py	/^init_partcle_rot_sigma = 1.3$/;"	kind:variable	line:42
+init_partcle_trans_sigma	amcl.py	/^init_partcle_trans_sigma = 1.3$/;"	kind:variable	line:41
+lidar_angle	amcl.py	/^lidar_angle = 0.$/;"	kind:variable	line:29
+lidar_x	amcl.py	/^lidar_x = 0.$/;"	kind:variable	line:30
+lidar_y	amcl.py	/^lidar_y = 0.$/;"	kind:variable	line:31
+map_point	test.py	/^class map_point:$/;"	kind:class	line:27
+matches	test.py	/^    matches = bf.match(w_des,l_des)$/;"	kind:variable	line:104
+matrix_to_pose	amcl.py	/^    def matrix_to_pose(self, odom):$/;"	kind:member	line:67
+max_dist	amcl.py	/^max_dist = 0.8 $/;"	kind:variable	line:34
+mp	test.py	/^    mp = map_point(kp[i],des[i])$/;"	kind:variable	line:37
+mp_in_camera_cood	test.py	/^    mp_in_camera_cood = C*R*mp_in_robot_cood$/;"	kind:variable	line:87
+mp_in_robot_cood	test.py	/^    mp_in_robot_cood = Tcw*mp_matrix$/;"	kind:variable	line:85
+mp_in_robot_cood	test.py	/^    mp_in_robot_cood = mp_in_robot_cood[0:3,:]$/;"	kind:variable	line:86
+mp_matrix	test.py	/^mp_matrix = mp_matrix.transpose()$/;"	kind:variable	line:45
+mp_matrix	test.py	/^mp_matrix = np.vstack([mp_matrix, tmp])$/;"	kind:variable	line:48
+occ_thr	amcl.py	/^occ_thr = 20$/;"	kind:variable	line:37
+odom_aphla1	amcl.py	/^odom_aphla1 = 0.006 #Weight of rotation error resulting from rotation$/;"	kind:variable	line:46
+odom_aphla2	amcl.py	/^odom_aphla2 = 0.230 #Weight of rotation error resulting from translation$/;"	kind:variable	line:47
+odom_aphla3	amcl.py	/^odom_aphla3 = 0.270 #Weight of translation error resulting from translation$/;"	kind:variable	line:48
+odom_aphla4	amcl.py	/^odom_aphla4 = 0.210 #Weight of translation error resulting from rotation$/;"	kind:variable	line:49
+odom_model	odom_model.py	/^    odom_model = Odom_Model(0.1, 0.0, 0.05, 0.0)$/;"	kind:variable	line:79
+odom_model	particle_cloud.py	/^    odom_model = Odom_Model()$/;"	kind:variable	line:113
+odom_model.py	odom_model.py	1;"	kind:file	line:1
+odom_topic	amcl.py	/^odom_topic = '\/odom'$/;"	kind:variable	line:20
+orb1	test.py	/^orb1 = cv2.ORB(nfeatures = 3000,edgeThreshold=7, nlevels = 1)$/;"	kind:variable	line:33
+orb2	test.py	/^orb2 = cv2.ORB(nfeatures = 500,edgeThreshold=7, nlevels = 1)$/;"	kind:variable	line:66
+original_point	amcl.py	/^original_point = (100,100)$/;"	kind:variable	line:33
+particle_cloud	particle_cloud.py	/^    particle_cloud = Particle_cloud(3)$/;"	kind:variable	line:114
+particle_cloud.py	particle_cloud.py	1;"	kind:file	line:1
+particle_num	amcl.py	/^particle_num = 1000$/;"	kind:variable	line:39
+particles	odom_model.py	/^    particles = []$/;"	kind:variable	line:80
+pose_1	odom_model.py	/^    pose_1 = [0.,0.,0.3]$/;"	kind:variable	line:64
+pose_2	odom_model.py	/^    pose_2 = [1,1.,1.]$/;"	kind:variable	line:65
+pose_3	odom_model.py	/^    pose_3 = [1,2.,1.5]$/;"	kind:variable	line:66
+pose_4	odom_model.py	/^    pose_4 = [0.5,2.5,1.8]$/;"	kind:variable	line:67
+pose_to_matrix	amcl.py	/^    def pose_to_matrix(self, pose):$/;"	kind:member	line:71
+poses	odom_model.py	/^    poses = []$/;"	kind:variable	line:69
+r	test.py	/^    r = ax.scatter(x,y,s=1,c='b')$/;"	kind:variable	line:109
+range_max	amcl.py	/^range_max = 8.$/;"	kind:variable	line:54
+readbag.py	readbag.py	1;"	kind:file	line:1
+readimage	readbag.py	/^    def readimage(self):$/;"	kind:member	line:43
+readodom	readbag.py	/^    def readodom(self):$/;"	kind:member	line:61
+readscan	readbag.py	/^    def readscan(self):$/;"	kind:member	line:51
+resolution	amcl.py	/^resolution = 0.025$/;"	kind:variable	line:35
+run	amcl.py	/^    def run(self):$/;"	kind:member	line:105
+sample	odom_model.py	/^    def sample(self, sigma):$/;"	kind:member	line:25
+scan_topic	amcl.py	/^scan_topic = '\/scan' $/;"	kind:variable	line:19
+set_init_particles	particle_cloud.py	/^    def set_init_particles(self,pose,sigma1,sigma2):$/;"	kind:member	line:19
+sigma_hit	amcl.py	/^sigma_hit = 0.2$/;"	kind:variable	line:53
+start_time	amcl.py	/^start_time = 0$/;"	kind:variable	line:21
+step	amcl.py	/^    def step(self):$/;"	kind:member	line:128
+sync	readbag.py	/^    def sync(self):$/;"	kind:member	line:73
+syncimg	readbag.py	/^    def syncimg(self):$/;"	kind:member	line:90
+tcw	test.py	/^    tcw = -Rwc.transpose()*twc$/;"	kind:variable	line:76
+test.py	test.py	1;"	kind:file	line:1
+tmp	test.py	/^tmp = np.zeros((1, mp_matrix.shape[1]))$/;"	kind:variable	line:46
+twc	test.py	/^    twc = np.matrix(odom[0:3,3]).transpose()$/;"	kind:variable	line:75
+update	odom_model.py	/^    def update(self, p, pose_pre, pose_now):$/;"	kind:member	line:43
+update_by_laser_model	particle_cloud.py	/^    def update_by_laser_model(self, laser_model_prob_func, *args):$/;"	kind:member	line:37
+update_by_odom_model	particle_cloud.py	/^    def update_by_odom_model(self, odom_model_update_func, *args):$/;"	kind:member	line:30
+update_by_resample	particle_cloud.py	/^    def update_by_resample(self):  $/;"	kind:member	line:67
+w	test.py	/^    w = 0$/;"	kind:variable	line:105
+x	odom_model.py	/^    x = []$/;"	kind:variable	line:75
+x	test.py	/^    x = []$/;"	kind:variable	line:131
+x	test.py	/^    x = []$/;"	kind:variable	line:88
+y	odom_model.py	/^    y = []$/;"	kind:variable	line:76
+y	test.py	/^    y = []$/;"	kind:variable	line:132
+y	test.py	/^    y = []$/;"	kind:variable	line:89
+z	test.py	/^    z = []$/;"	kind:variable	line:133
+z_hit	amcl.py	/^z_hit = 0.95$/;"	kind:variable	line:51
+z_rand	amcl.py	/^z_rand = 0.05$/;"	kind:variable	line:52
