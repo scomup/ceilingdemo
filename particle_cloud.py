@@ -2,6 +2,7 @@
 # coding: UTF-8
 import random
 import numpy as np
+import time
 
 
 
@@ -46,8 +47,6 @@ class Particle_cloud:
             if w > w_max:
                 w_max = w
                 self.best_p = p
-
-        
         if w_tot > 0:
             for p in self.particles:
                 p[1] /= w_tot
@@ -63,10 +62,45 @@ class Particle_cloud:
         else:
             for p in self.particles:
                 p[1] /= 1./len(self.particles)
-                
+
+
+    def update_by_camera_model(self, camera_model_prob_func, *args):
+        w_tot = 0.
+        w_max = 0.
+        tot_time = 0.
+        for p in self.particles:
+            #start = time.time()
+            w = camera_model_prob_func(args[0],args[1],p[0]) 
+            if w > w_max:
+                w_max = w
+                self.best_p = p
+            p[1] = w
+            w_tot += w
+            if w > w_max:
+                w_max = w
+                self.best_p = p
+        if w_tot > 0:
+            for p in self.particles:
+                p[1] /= w_tot
+            w_avg = w_tot/len(self.particles)
+            if self.w_slow == 0.0:
+              self.w_slow = w_avg
+            else:
+              self.w_slow += self.alpha_slow * (w_avg - self.w_slow)
+            if self.w_fast == 0.0:
+              self.w_fast = w_avg
+            else:
+              self.w_fast += self.alpha_fast * (w_avg - self.w_fast)
+        else:
+            for p in self.particles:
+                p[1] = 1./len(self.particles)
+            self.w_slow = 1.0
+            self.w_fast = 1.0
+            
+
     def update_by_resample(self):  
         resampled = [] 
-        print 'fast:', self.w_fast, 'slow:', self.w_slow
+        #print 'fast:', self.w_fast, 'slow:', self.w_slow
         w_diff = 1.0 - self.w_fast / self.w_slow  
         if w_diff < 0.0:
             w_diff = 0.0
