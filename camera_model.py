@@ -36,7 +36,7 @@ class Camera_model:
         mp_in_robot_cood = mp_in_robot_cood[0:3,:]
         mp_in_camera_cood = self.C*self.R*mp_in_robot_cood
         mp_in_camera_cood = np.array(mp_in_camera_cood)
-        start = time.time()
+        #start = time.time()
         mp_in_camera_cood = mp_in_camera_cood/mp_in_camera_cood[2,:]
         in_flag1 = (mp_in_camera_cood[0,:] < image.shape[1]) * (mp_in_camera_cood[0,:] >= 0)
         in_flag2 = (mp_in_camera_cood[1,:] < image.shape[0]) * (mp_in_camera_cood[1,:] >= 0)
@@ -44,8 +44,8 @@ class Camera_model:
         w_des = image_map.des[in_flag,:]
         mp_in_camera_cood = mp_in_camera_cood[:,in_flag]
             
-        elapsed_time = time.time() - start
-        self.tot_time += elapsed_time
+        #elapsed_time = time.time() - start
+        #self.tot_time += elapsed_time
 
         if w_des.shape[0] <= 40:
             return 0.
@@ -57,13 +57,11 @@ class Camera_model:
             (x1,y1)  = mp_in_camera_cood[0:2,m.queryIdx]
             (x2,y2)  = self.l_key[m.trainIdx].pt
             d = sqrt((x1-x2)**2 + (y1-y2)**2 )
-            w += 1/sqrt(d)
-            #w += 1/d
+            #w += 1/sqrt(d)
+            w += 1/d
         """
         image_show = np.array(image)
         for m in matches:
-            if m.queryIdx > len(w_key_loc):
-                pass
             (x1,y1)  = mp_in_camera_cood[0:2,m.queryIdx]
             (x2,y2)  = self.l_key[m.trainIdx].pt
             qt = [x1,y1,x2,y2]
@@ -75,11 +73,24 @@ class Camera_model:
             cv2.line(image_show, (int(x1),int(y1)), (int(x2),int(y2)), (255, 0, 0), 1)
         cv2.imshow("image",image_show)
         #print "here!"
-        cv2.waitKey(100)
+        cv2.waitKey(0)
         """
         
         #print w
         return w
 
 
-        
+if __name__ == "__main__":
+    from image_map import Image_map
+    import cv2
+    image_map = Image_map("pattern_wall_resize.jpg",171.4,1.84)
+    camera_model = Camera_model(320.,320.,320.5,240.5)
+    
+    img = cv2.imread("camera1.png")
+    image =cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+    camera_model.update_keypoint(image)
+    w = camera_model.get_matching_weight(image_map,image,[5.1,1.84,0])
+    print w
+
+

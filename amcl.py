@@ -15,6 +15,10 @@ import cv2
 import matplotlib.pyplot as plt
 
 ##########################
+map_image_file_name = "pattern_wall_resize.jpg"
+resolution = 171.4 # pixcel per meter
+image_height = 1.84
+##########################
 bagfile = '/home/liu/ceiling_test.bag'
 image_topic = '/stereo/left/image_raw' 
 odom_topic = '/myRobot/odom'
@@ -32,19 +36,15 @@ odom_aphla1 = 0.106 #Weight of rotation error resulting from rotation
 odom_aphla2 = 0.430 #Weight of rotation error resulting from translation
 odom_aphla3 = 0.270 #Weight of translation error resulting from translation
 odom_aphla4 = 0.210 #Weight of translation error resulting from rotation
-##########################
-C = np.matrix([[320., 0, 320.5], [0, 320., 240.5], [0, 0, 1.]])
-R = np.matrix([[0., -1., 0.], [1., 0., 0.], [0., 0., 1.]])
-fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-plt.ylim(-0,480)
-plt.xlim(-0,640)
-plt.gca().invert_yaxis()
 #########################
 d_thresh_ = .1
 a_thresh_ = np.pi/12
 ##########################
-
+fx = 320.
+fy = 320.
+cx = 320.5
+cy = 240.5
+##########################
 class ceiling_AMCL():
     def __init__(self, gui, raw_data, image_map):
         self.gui = gui
@@ -53,7 +53,7 @@ class ceiling_AMCL():
         self.particle_cloud = Particle_cloud(particle_num, alpha_slow, alpha_fast)
         self.particle_cloud.set_init_particles(init_partcle_pose, init_partcle_trans_sigma, init_partcle_rot_sigma)
         self.odom_model = Odom_Model(odom_aphla1, odom_aphla2, odom_aphla3, odom_aphla4)
-        self.camera_model = Camera_model(320.,320.,320.5,240.5)
+        self.camera_model = Camera_model(fx,fy,cx,cy)
 
     def matrix_to_pose(self, odom):
         al, be, ga = tf.transformations.euler_from_matrix(odom[0:3,0:3])
@@ -75,12 +75,12 @@ class ceiling_AMCL():
 
     def gui_update(self):
             ps = [ (p[0][0]*self.image_map.resolution,p[0][1]*self.image_map.resolution , p[0][2]) for p in self.particle_cloud.particles ]
-            pose = self.particle_cloud.best_p[0]
+            pose = self.particle_cloud.best_p
             pose_gui = [0,0,0]
             #print pose
-            #pose_gui[0] = pose[0]*self.image_map.resolution 
-            #pose_gui[1] = pose[1]*self.image_map.resolution
-            #pose_gui[2] = pose[2]
+            pose_gui[0] = int(pose[0]*self.image_map.resolution) 
+            pose_gui[1] = int(pose[1]*self.image_map.resolution)
+            pose_gui[2] = int(pose[2])
             gui.setdata(self.image, ps, pose_gui)
 
 
@@ -103,6 +103,7 @@ class ceiling_AMCL():
     def step(self):
         image, odom = self.raw_data[self.idx]
         self.image = image
+        #cv2.imwrite("camera1.png",image)
         #cv2.imshow("image",image)
         #image, odomx = self.raw_data[0]
         odom = np.matrix(odom)
@@ -126,20 +127,17 @@ class ceiling_AMCL():
 
         self.particle_cloud.update_by_odom_model(self.odom_model.update, self.pre_pose, self.cur_pose)
         self.camera_model.update_keypoint(image)
-        start = time.time()
         self.particle_cloud.update_by_camera_model(self.camera_model.get_matching_weight,self.image_map, image)
-        elapsed_time = time.time() - start
-        #print ("elapsed_time:{0}".format(elapsed_time)) + "[sec]"
         self.particle_cloud.update_by_resample()
         self.pre_pose = self.cur_pose
         #print self.camera_model.tot_time
-        self.camera_model.tot_time = 0.
+        #self.camera_model.tot_time = 0.
 
 
-gui = ceiling_AMCL_GUI()
+gui = ceiling_AMCL_GUI(map_image_file_name)
 gui.start()
 bagreader = BagReader(bagfile, image_topic, odom_topic, start_time, end_time)
-image_map = Image_map("pattern_wall_resize.jpg",171.4,1.84)
+image_map = Image_map(map_image_file_name,resolution,image_height)
 amcl = ceiling_AMCL(gui, bagreader.data, image_map)
 amcl.run()
 

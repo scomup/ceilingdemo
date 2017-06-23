@@ -18,10 +18,17 @@ class Particle_cloud:
         self.best_p = [0,0,0]
 
     def set_init_particles(self,pose,sigma1,sigma2):
+        init_partcle_pose_unknow = True
         for i in range(self.num):
-            x = random.gauss(pose[0],sigma1)
-            y = random.gauss(pose[1],sigma1)
-            a = random.gauss(pose[2],sigma2)
+            if  (init_partcle_pose_unknow):
+                x = random.random()*7.5
+                y = random.random()*2.8 
+                a = random.random()*2*np.pi-np.pi 
+                #a = 0.
+            else:
+                x = random.gauss(pose[0],sigma1)
+                y = random.gauss(pose[1],sigma1)
+                a = random.gauss(pose[2],sigma2)
             if a > np.pi:
                 a = a % np.pi
             elif a < -np.pi:
@@ -46,7 +53,7 @@ class Particle_cloud:
             w_tot += w
             if w > w_max:
                 w_max = w
-                self.best_p = p
+                self.best_p = p[0]
         if w_tot > 0:
             for p in self.particles:
                 p[1] /= w_tot
@@ -73,12 +80,12 @@ class Particle_cloud:
             w = camera_model_prob_func(args[0],args[1],p[0]) 
             if w > w_max:
                 w_max = w
-                self.best_p = p
+                self.best_p = p[0]
             p[1] = w
             w_tot += w
             if w > w_max:
                 w_max = w
-                self.best_p = p
+                self.best_p = p[0]
         if w_tot > 0:
             for p in self.particles:
                 p[1] /= w_tot

@@ -36,6 +36,20 @@ class Odom_Model:
     def fix_angle(self, angle):
         return atan2(sin(angle),cos(angle))
 
+    def angle_diff(self, a, b):
+        a = self.fix_angle(a)
+        b = self.fix_angle(b)
+        d1 = a-b
+        d2 = 2*np.pi - fabs(d1)
+        if(d1 > 0):
+            d2 = -d2
+        if(fabs(d1) < fabs(d2)):
+            return d1
+        else:
+            return d2
+            
+        
+
     def update(self, p, pose_pre, pose_now):
         # Probabilistic Robotics (pp.110 Table 5.6)
         A1 = self.A1
@@ -43,23 +57,16 @@ class Odom_Model:
         A3 = self.A3
         A4 = self.A4
         res = [0.,0.,0.]
-        
+
         d = sqrt((pose_now[1] - pose_pre[1])**2 + (pose_now[0] - pose_pre[0])**2)
         if d > 0.02:  
-            rot1 = self.fix_angle(atan2(pose_now[1] - pose_pre[1], pose_now[0] - pose_pre[0]) - pose_pre[2])
+            rot1 = self.angle_diff(atan2(pose_now[1] - pose_pre[1], pose_now[0] - pose_pre[0]) , pose_pre[2])
             trans = sqrt((pose_now[1] - pose_pre[1])**2 + (pose_now[0] - pose_pre[0])**2)
-            rot2 = self.fix_angle(pose_now[2] - pose_pre[2] - rot1)
+            rot2 = self.angle_diff(pose_now[2] - pose_pre[2] , rot1)
         else:
-            rot1 = self.fix_angle(pose_now[2] - pose_pre[2])/2
+            rot1 = self.angle_diff(pose_now[2] , pose_pre[2])/2
             trans = 0.
             rot2 = rot1
-            
-        #print f, rot1, rot2, trans
-        if rot1 < -1. or rot1 >1.:
-            print pose_now[2],pose_pre[2]
-            print pose_now[2] - pose_pre[2]
-            print fabs(pose_now[2] - pose_pre[2])
-            print fabs(pose_now[2] - pose_pre[2])%np.pi
 
         rot1_hat = rot1-self.sample(A1*rot1 + A2*trans)
         trans_hat = trans-self.sample(A3*trans + A4*(rot1 + rot2))

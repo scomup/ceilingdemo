@@ -74,12 +74,13 @@ class ParticleItem(QtGui.QGraphicsItem):
 
 
 class ceiling_AMCL_GUI(threading.Thread):
-    def __init__(self):
+    def __init__(self,map_image_file_name):
         threading.Thread.__init__(self)
-        #self.setDaemon(True)
+        self.setDaemon(True)
         self.q = Queue.Queue()
         self.state = 0 
         self.particle_handle = [] 
+        self.map_image_file_name = map_image_file_name
 
     def run(self):
         ## Always start by initializing Qt (only once per application)
@@ -148,7 +149,7 @@ class ceiling_AMCL_GUI(threading.Thread):
         ## Set image level
         #self.img.setLevels([0, 1])
 
-        img = cv2.imread("pattern_wall_resize.jpg")
+        img = cv2.imread(self.map_image_file_name)
         grey_img =cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         grey_img = grey_img.transpose()
         self.img.setImage(grey_img.astype(float))
@@ -220,7 +221,7 @@ class ceiling_AMCL_GUI(threading.Thread):
         pass
 
 if __name__ == "__main__":
-    gui = LSLAMGUI()
+    gui = ceiling_AMCL_GUI("pattern_wall_resize.jpg")
     gui.start()
     print 'sample gui test'
     import random
@@ -231,6 +232,6 @@ if __name__ == "__main__":
         random.random
         particles = [(100*random.random()+200 , 100*random.random()+200, random.random()) for i in range(1000)]
         #particles = [ (-20,-20,0) ]
-        gui.setdata(particles, [0,0,i])
+        gui.setdata(np.random.rand(480,640), particles, [0,0,i])
 
     
